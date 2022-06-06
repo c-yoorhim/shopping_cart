@@ -8,8 +8,7 @@ import React from 'react';
 const Cart = ({ data })=> {
   let total = 0;
   return (
-    <div class="cart">
- <div class="cart">
+  <div class="cart">
         <h2>Your Cart</h2>
         <table class="cart-items">
           <thead>
@@ -20,9 +19,8 @@ const Cart = ({ data })=> {
           </tr>
           </thead>
           <tbody>
-
             {data.map(item => {
-            {total += item.price * item.quantity}  
+            total += item.price * item.quantity  
             return (<tr>
               <td>{item.title}</td>
               <td>{item.quantity}</td>
@@ -38,7 +36,6 @@ const Cart = ({ data })=> {
         </table>
         <a class="button checkout">Checkout</a>
       </div>    
-      </div>
   );
 };
 

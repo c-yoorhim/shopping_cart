@@ -1,21 +1,16 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import Cart from "./Cart"
 import Products from "./Products"
-import data from "../lib/data.js"
-// cart
-  // Summary
-    // title, price, quantity
-  // total
-  // checkout button
-// products
-  // product
-    // title, price, quantity in stock
-    // buttons: add, edit
-    // form (edit): name, price, quantity
-  // add products button
-  // form (add): name, price, quantity
-
+import staticData from "../lib/data.js"
+// todo:
+  // onclick for showing add form
+  // onclick for showing edit form
+// should we move the data into individual components? (cart data will be different from product data)
 const App = () => {
+  const [data, setProductData] = useState([]);
+  useEffect(()=> setProductData(staticData), [])
+
   return (
     <div id="app">
       <h1>The Shop!</h1>
