@@ -2,7 +2,6 @@ import ProductEditForm from "./ProductEditForm"
 import { useState } from "react"
 
 const Product = ({details}) => {
-  console.log(details)
   const [edit, setEdit] = useState(false)
   function closeEdit(e) {
     setEdit(false)

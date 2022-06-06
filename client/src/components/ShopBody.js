@@ -16,7 +16,7 @@ const ShopBody = () => {
       <div class="product-listing">
         <h2>Products</h2>
         {data.map(product => {
-          return <Product details={product}/>
+          return <Product key={product.id} details={product}/>
         })}
       </div>
 
