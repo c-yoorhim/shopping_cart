@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Product from './Product'
 import ProductForm from './ProductForm'
 // {
@@ -7,6 +8,8 @@ import ProductForm from './ProductForm'
 //   price: 79.99
 // },
 const Products = ({ data })=> {
+  const [showAddForm, setAddForm] = useState(false)
+
   return (
     <div>
       <div class="product-listing">
@@ -19,6 +22,7 @@ const Products = ({ data })=> {
       <div class="add-form">
         <p><a class="button add-product-button">Add A Product</a></p>
       </div>
+      {/* {showAddForm ? } */}
       <ProductForm type="Add"/>
     </div>
 )}

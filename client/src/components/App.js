@@ -9,13 +9,27 @@ import staticData from "../lib/data.js"
 // should we move the data into individual components? (cart data will be different from product data)
 const App = () => {
   const [data, setProductData] = useState([]);
-  useEffect(()=> setProductData(staticData), [])
+
+  // const handleClick = (state, callback) => {
+  //   return () => {
+  //     // e.preventDefault()
+  //     callback(!state);
+  //   }
+  //  }
+
+  useEffect(()=> {
+    setProductData(staticData)}, [])
+
+  //   ;(async (arguments) => {
+      
+  //   })()
+  // }
 
   return (
     <div id="app">
       <h1>The Shop!</h1>
       <Cart data={data}/>
-      <Products data={data}/>
+      <Products data={data} />
     </div>
   );
 };
