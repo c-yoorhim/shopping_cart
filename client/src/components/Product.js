@@ -1,11 +1,12 @@
 import ProductEditForm from "./ProductEditForm"
 import { useState } from "react"
 
-const Product = ({details}) => {
+const Product = ({details, handleRemove, handleEdit}) => {
   const [edit, setEdit] = useState(false)
   function closeEdit(e) {
     setEdit(false)
   }
+
   const addBtnClass = "button add-to-cart"
   return (
     <div className="product">
@@ -20,9 +21,9 @@ const Product = ({details}) => {
           </div>
           : null
         }
-        <a className="delete-button"><span>X</span></a>
+        <a className="delete-button" onClick={() => handleRemove(details._id)}><span>X</span></a>
       </div>
-      {edit ? <ProductEditForm details={details} btnHandler={closeEdit}/> : null}
+      {edit ? <ProductEditForm details={details} btnHandler={closeEdit} handleEdit={handleEdit}/> : null}
     </div>
   )
 }
