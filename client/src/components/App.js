@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import { useState, useEffect } from "react";
 import Cart from "./Cart"
 import Products from "./Products"
@@ -10,26 +11,19 @@ import staticData from "../lib/data.js"
 const App = () => {
   const [data, setProductData] = useState([]);
 
-  // const handleClick = (state, callback) => {
-  //   return () => {
-  //     // e.preventDefault()
-  //     callback(!state);
-  //   }
-  //  }
-
   useEffect(()=> {
     setProductData(staticData)}, [])
 
-  //   ;(async (arguments) => {
+    // ;(async () => {
       
-  //   })()
-  // }
+    // })()
+  
 
   return (
     <div id="app">
       <h1>The Shop!</h1>
       <Cart data={data}/>
-      <Products data={data} />
+      <Products data={data}/>
     </div>
   );
 };

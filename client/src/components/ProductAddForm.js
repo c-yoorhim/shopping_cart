@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const ProductForm = ({ type })=> {
+const ProductAddForm = ({ onCancelClick })=> {
   const [productName, setProductName] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productQuantity, setProductQuantity] = useState('')
@@ -14,7 +14,7 @@ const ProductForm = ({ type })=> {
   // console.log(productName);
   return (
     <div>
-    <h3>{type} Product</h3>
+    <h3>Add Product</h3>
     <form>
       <div class="input-group">
         <label for="product-name">Product Name</label>
@@ -32,12 +32,12 @@ const ProductForm = ({ type })=> {
       </div>
 
       <div class="actions form-actions">
-        <a class="button">{type}</a>
-        <a class="button" >Cancel</a>
+        <a class="button">Add</a>
+        <a class="button" onClick={onCancelClick}>Cancel</a>
       </div>
     </form> 
     </div>
   )
 }
 
-  export default ProductForm;
+export default ProductAddForm;
