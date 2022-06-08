@@ -1,36 +1,50 @@
 import { useState } from "react"
 
-const ProductEditForm = ({ onCancel })=> {
-  const [productName, setProductName] = useState('')
-  const [productPrice, setProductPrice] = useState('')
-  const [productQuantity, setProductQuantity] = useState('')
+const ProductEditForm = ({ id, onCancel, onEdit, onShowEditForm, product })=> {
+  const [productName, setProductName] = useState(product.title)
+  const [productPrice, setProductPrice] = useState(product.price)
+  const [productQuantity, setProductQuantity] = useState(product.quantity)
 
-const handleHideForm = (e) => {
-  e.preventDefault();
-  onCancel();
-} 
+  const handleHideForm = (e) => {
+    e.preventDefault();
+    onCancel();
+  } 
+
+  const handleEdit = (e) => {
+    e.preventDefault()
+    console.log('id', id)
+    onEdit({productName, productPrice, productQuantity, id }, resetForm)
+   
+  }
+  const resetForm = () => {
+    setProductName("")
+    setProductPrice("")
+    setProductQuantity("")
+    onShowEditForm()
+
+  }
   return (
     <div>
     <h3>Edit Product</h3>
     <form>
-      <div class="input-group">
-        <label for="product-name">Product Name</label>
+      <div className="input-group">
+        <label htmlFor="product-name">Product Name</label>
         <input type="text" id="product-name" value={productName} onChange={event=>setProductName(event.target.value)}/>
       </div>
 
-      <div class="input-group">
-        <label for="product-price">Price</label>
+      <div className="input-group">
+        <label htmlFor="product-price">Price</label>
         <input type="text" id="product-price" value={productPrice} onChange={event=>setProductPrice(event.target.value)}/>
       </div>
 
-      <div class="input-group">
-        <label for="product-quantity">Quantity</label>
+      <div className="input-group">
+        <label htmlFor="product-quantity">Quantity</label>
         <input type="text" id="product-quantity" value={productQuantity} onChange={event=>setProductQuantity(event.target.value)}/>
       </div>
 
-      <div class="actions form-actions">
-        <a href="/#" class="button">Edit</a>
-        <a href="/#" class="button" onClick={ handleHideForm }>Cancel</a>
+      <div className="actions form-actions">
+        <a href="/#" className="button" onClick={ handleEdit }>Edit</a>
+        <a href="/#" className="button" onClick={ handleHideForm }>Cancel</a>
       </div>
     </form> 
     </div>

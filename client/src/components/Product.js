@@ -1,32 +1,43 @@
 import { useState } from "react";
 import ProductEditForm from "./ProductEditForm";
+import axios from "axios"
 
-const Product = ({ product })=> {
+const Product = ({ product, setProducts, onEdit, onAddToCart, onDelete})=> {
   const [showEditForm, setShowEditForm ] = useState(false)
 
-  const handleShowEditForm = (e) => {
-    e.preventDefault()
-    setShowEditForm(!showEditForm)
+  const handleShowEditForm = () => {
+    setShowEditForm(!showEditForm);
+  }
+  const handleHideForm = () => {
+    setShowEditForm(false);
+  }
+  const handleAddToCart = () => {
+    onAddToCart(product)
   }
 
-  const handleHideForm = () => {
-    setShowEditForm(false)
-  }
 
   return (
-    <div class="product">
-      <div class="product-details">
+    <div className="product">
+      <div className="product-details">
       <h3>{product.title}</h3>
-      <p class="price">{product.price}</p>
-      <p class="quantity">{product.quantity} left in stock</p>
-      <div class="actions product-actions">
-        <a href="/#" class="button add-to-cart">Add to Cart</a>
+      <p className="price">{product.price}</p>
+      <p className="quantity">{product.quantity} left in stock</p>
+      <div className="actions product-actions">
+        {
+          product.quantity > 0 ? 
+          (
+            <a className="button add-to-cart" onClick={ handleAddToCart }>Add to Cart</a>
+            ) :
+            (
+            <a className="button add-to-cart disabled">Add to Cart</a>
+          )
+        }
         
-        <a href="/#" class="button edit" onClick={ handleShowEditForm }>Edit</a>
+        <a className="button edit" onClick={ handleShowEditForm }>Edit</a>
       </div>
-      <a href="/#" class="delete-button"><span>X</span></a>
+      <a className="delete-button" onClick={ onDelete(product._id) }><span>X</span></a>
     </div>
-    {showEditForm ? <ProductEditForm onCancel={ handleHideForm }/> : null }
+    {showEditForm ? <ProductEditForm id={ product._id} onCancel={ handleHideForm } onEdit={ onEdit } onShowEditForm={handleShowEditForm} product={product} /> : null }
     
     </div>)
 }
