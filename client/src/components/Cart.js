@@ -34,7 +34,7 @@ const Cart = ({ data })=> {
           </tr>
           </tfoot>
         </table>
-        <a class="button checkout">Checkout</a>
+        <a href="/#" class="button checkout">Checkout</a>
       </div>    
   );
 };

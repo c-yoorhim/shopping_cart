@@ -1,20 +1,17 @@
-import { useState } from 'react';
+import { useState } from "react"
 
-const ProductForm = ({ type })=> {
+const ProductEditForm = ({ onCancel })=> {
   const [productName, setProductName] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productQuantity, setProductQuantity] = useState('')
 
-  // const handleCancelClick = (e) => {
-  //   console.log(setState);
-  //   e.preventDefault();
-  //   setState(!state);
-  // }
-
-  // console.log(productName);
+const handleHideForm = (e) => {
+  e.preventDefault();
+  onCancel();
+} 
   return (
     <div>
-    <h3>{type} Product</h3>
+    <h3>Edit Product</h3>
     <form>
       <div class="input-group">
         <label for="product-name">Product Name</label>
@@ -32,12 +29,12 @@ const ProductForm = ({ type })=> {
       </div>
 
       <div class="actions form-actions">
-        <a class="button">{type}</a>
-        <a class="button" >Cancel</a>
+        <a href="/#" class="button">Edit</a>
+        <a href="/#" class="button" onClick={ handleHideForm }>Cancel</a>
       </div>
     </form> 
     </div>
   )
 }
 
-  export default ProductForm;
+export default ProductEditForm
