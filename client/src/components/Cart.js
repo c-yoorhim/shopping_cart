@@ -6,7 +6,6 @@ import axios from 'axios'
 const Cart = ()=> {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cartItems);
-  console.log(cartItems)
   // const handleAddToCart = async (product) => {
   //   // try {
   //   //   const response = await axios.post("/api/add-to-cart", { productId: product._id })
