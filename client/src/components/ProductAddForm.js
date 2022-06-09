@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { productAdded } from '../action/productsAction';
+import { productsReceived, productAdded } from '../action/productsAction';
 import axios from 'axios';
 import toggleAddForm from '../action/toggleAddFormAction';
 
-const ProductAddForm = ({ onCancel })=> {
+const ProductAddForm = ()=> {
   const [productName, setProductName] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productQuantity, setProductQuantity] = useState('')
   const dispatch = useDispatch();
   const addFormVisibility = useSelector((state) => state.addFormVisibility)
+  const products = useSelector(state => state.products)
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
@@ -20,18 +21,15 @@ const ProductAddForm = ({ onCancel })=> {
         quantity: productQuantity
       })
       dispatch(toggleAddForm(!addFormVisibility));
-      dispatch(productAdded(newProduct));    
+      dispatch(productAdded(newProduct.data));
+      dispatch(productsReceived(products.concat(newProduct.data)));    
     } catch (e) { console.error(e) }
   }
 
   const handleHideForm = (e) => {
     e.preventDefault();
-    onCancel();
+    dispatch(toggleAddForm(!addFormVisibility));
   } 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   // onSubmit({productName, productPrice, productQuantity})
-  // }
 
   return (
     <div>

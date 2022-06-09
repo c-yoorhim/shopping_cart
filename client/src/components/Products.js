@@ -12,7 +12,6 @@ const Products = ()=> {
   const products = useSelector((state)=> state.products)
   const addFormVisibility = useSelector((state) => state.addFormVisibility)
 
-  console.log(products)
   useEffect(() => {
     ;(async () => {
       const response = await axios.get("/api/products")
@@ -25,21 +24,7 @@ const Products = ()=> {
     dispatch(toggleAddForm(!addFormVisibility))
   }
 
-  const handleCancelClick = (e) => {
-    e.preventDefault();
-    dispatch(toggleAddForm(!addFormVisibility));
-  }
-  // const handleDeleteProduct = (id) => {
-    
-  //   return async () => {
-  //     try {
-  //       await axios.delete(`/api/products/${id}`)
-  //       const updatedProducts = products.filter(p => p._id !== id)
-  //       // setProducts(updatedProducts)
-  //     } catch (e) { console.error(e) }
-  //   }
-  // }
-   
+ 
   return (
     <main>
       <div className="product-listing">
@@ -52,7 +37,7 @@ const Products = ()=> {
       <div className="add-form">
         <p><a href="/#" className="button add-product-button" onClick={ handleAddClick }>Add A Product</a></p>
       </div>
-      {addFormVisibility ? <ProductAddForm onCancel={ handleCancelClick }/> : null}
+      {addFormVisibility ? <ProductAddForm /> : null}
     </main>
 )}
 

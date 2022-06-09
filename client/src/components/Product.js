@@ -14,6 +14,7 @@ const Product = ({ product })=> {
     e.preventDefault();
     setShowEditForm(!showEditForm);
   }
+
   const handleHideForm = () => {
     setShowEditForm(false);
   }
@@ -45,6 +46,16 @@ const Product = ({ product })=> {
     } catch (e) { console.error(e) }
   }
 
+  const handleDeleteProduct = (id) => {
+    return (async () => {
+      try {
+        await axios.delete(`/api/products/${id}`)
+        const updatedProducts = products.filter(p => p._id !== id)
+        dispatch(productsReceived(updatedProducts))
+      } catch (e) { console.error(e) }
+    })
+  }
+
   return (
     <div className="product">
       <div className="product-details">
@@ -64,9 +75,9 @@ const Product = ({ product })=> {
         
         <a className="button edit" onClick={ handleShowEditForm }>Edit</a>
       </div>
-      <a className="delete-button" ><span>X</span></a>
+      <a className="delete-button" onClick={ handleDeleteProduct(product._id) }><span>X</span></a>
     </div>
-    {showEditForm ? <ProductEditForm id={ product._id} onCancel={ handleHideForm } onShowEditForm={handleShowEditForm} product={product} /> : null }
+    {showEditForm ? <ProductEditForm id={ product._id} onCancel={ handleHideForm } onShowEditForm={handleHideForm} product={product} /> : null }
     
     </div>)
 }
