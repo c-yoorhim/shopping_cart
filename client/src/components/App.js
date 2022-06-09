@@ -3,8 +3,7 @@ import axios from 'axios';
 import { useState, useEffect } from "react";
 import Cart from "./Cart"
 import Products from "./Products"
-// todo:
-// should we move the data into individual components? (cart data will be different from product data)
+
 const App = () => {
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState([])
@@ -62,7 +61,6 @@ const App = () => {
       setCartItems(cartResponse.data)
       
       })()
-    
     }, [])
 
   return (

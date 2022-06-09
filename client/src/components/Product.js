@@ -1,8 +1,7 @@
 import { useState } from "react";
 import ProductEditForm from "./ProductEditForm";
-import axios from "axios"
 
-const Product = ({ product, setProducts, onEdit, onAddToCart, onDelete})=> {
+const Product = ({ product, onEdit, onAddToCart, onDelete})=> {
   const [showEditForm, setShowEditForm ] = useState(false)
 
   const handleShowEditForm = () => {
