@@ -1,18 +1,37 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { productAdded } from '../action/productsAction';
+import axios from 'axios';
+import toggleAddForm from '../action/toggleAddFormAction';
 
-const ProductAddForm = ({ onCancel, onSubmit })=> {
+const ProductAddForm = ({ onCancel })=> {
   const [productName, setProductName] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productQuantity, setProductQuantity] = useState('')
+  const dispatch = useDispatch();
+  const addFormVisibility = useSelector((state) => state.addFormVisibility)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
+    try {
+        const newProduct = await axios.post("/api/products", {
+        title: productName,
+        price: productPrice,
+        quantity: productQuantity
+      })
+      dispatch(toggleAddForm(!addFormVisibility));
+      dispatch(productAdded(newProduct));    
+    } catch (e) { console.error(e) }
+  }
 
   const handleHideForm = (e) => {
     e.preventDefault();
     onCancel();
   } 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    onSubmit({productName, productPrice, productQuantity})
-  }
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   // onSubmit({productName, productPrice, productQuantity})
+  // }
 
   return (
     <div>

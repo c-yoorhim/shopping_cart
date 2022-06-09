@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ProductEditForm from "./ProductEditForm";
 
-const Product = ({ product, onEdit, onAddToCart, onDelete})=> {
+const Product = ({ product})=> {
   const [showEditForm, setShowEditForm ] = useState(false)
 
   const handleShowEditForm = () => {
@@ -11,7 +11,7 @@ const Product = ({ product, onEdit, onAddToCart, onDelete})=> {
     setShowEditForm(false);
   }
   const handleAddToCart = () => {
-    onAddToCart(product)
+    // onAddToCart(product)
   }
 
 
@@ -34,9 +34,9 @@ const Product = ({ product, onEdit, onAddToCart, onDelete})=> {
         
         <a className="button edit" onClick={ handleShowEditForm }>Edit</a>
       </div>
-      <a className="delete-button" onClick={ onDelete(product._id) }><span>X</span></a>
+      <a className="delete-button" ><span>X</span></a>
     </div>
-    {showEditForm ? <ProductEditForm id={ product._id} onCancel={ handleHideForm } onEdit={ onEdit } onShowEditForm={handleShowEditForm} product={product} /> : null }
+    {showEditForm ? <ProductEditForm id={ product._id} onCancel={ handleHideForm } onShowEditForm={handleShowEditForm} product={product} /> : null }
     
     </div>)
 }
