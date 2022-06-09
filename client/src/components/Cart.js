@@ -1,8 +1,51 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import cartReceived from '../action/cartsAction'
+import axios from 'axios'
 
-const Cart = ({ cartItems, onCheckout })=> {
+const Cart = ()=> {
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cartItems);
+  console.log(cartItems)
+  // const handleAddToCart = async (product) => {
+  //   // try {
+  //   //   const response = await axios.post("/api/add-to-cart", { productId: product._id })
+  //   //   const found = cartItems.find(c => c.productId === product._id)
+
+  //   //   if (found) {
+  //   //     const updatedCart = cartItems.map(item => {
+  //   //       return item.productId === product._id ?
+  //   //       response.data.item
+  //   //       : item 
+  //   //     })
+        
+  //   //     setCartItems(updatedCart)
+  //   //   } else {
+  //   //     setCartItems(cartItems.concat(response.data.item)) // add to cart if not already in cart
+  //   //   }
+  //   //   const updatedProducts = products.map(p => {
+  //   //     return p._id === product._id ? response.data.product : p 
+  //   //   })
+  //   //   // setProducts(updatedProducts)
+
+  //   // } catch (e) { console.error(e) }
+  // }
+
+  // const handleCheckout = async () => {
+  //   await axios.post("/api/checkout")
+  //   setCartItems([])
+  // }
+
+  useEffect(()=> {
+    ;(async () => {
+      const cartResponse = await axios.get("/api/cart")
+      dispatch(cartReceived(cartResponse.data))
+      })()
+    }, [dispatch])
+
   const handleCheckout = (e) => {
     e.preventDefault();
-    onCheckout()
+    // onCheckout()
   }
   
   let total = 0;
