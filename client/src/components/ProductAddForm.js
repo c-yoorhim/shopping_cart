@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { productAdded } from '../action/productsAction';
-import axios from 'axios';
+// import { productAdded } from '../action/productsAction';
 import toggleAddForm from '../action/toggleAddFormAction';
+import { addProduct } from '../features/products'
 
 const ProductAddForm = ()=> {
   const [productName, setProductName] = useState('')
@@ -14,13 +14,9 @@ const ProductAddForm = ()=> {
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     try {
-        const newProduct = await axios.post("/api/products", {
-        title: productName,
-        price: productPrice,
-        quantity: productQuantity
-      })
       dispatch(toggleAddForm(!addFormVisibility));
-      dispatch(productAdded(newProduct.data));
+      const productDetails = {productName, productPrice, productQuantity}
+      dispatch(addProduct(productDetails));
     } catch (e) { console.error(e) }
   }
 

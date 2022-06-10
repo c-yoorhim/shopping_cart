@@ -4,8 +4,8 @@ import ProductAddForm from './ProductAddForm'
 import { useDispatch, useSelector } from 'react-redux';
 import toggleAddForm from "../action/toggleAddFormAction";
 import { useEffect } from 'react';
-import { productsReceived } from "../action/productsAction"
-import axios from 'axios';
+// import { productsReceived } from "../action/productsAction"
+import {fetchProducts } from "../features/products"
 
 const Products = ()=> {
   const dispatch = useDispatch();
@@ -13,10 +13,8 @@ const Products = ()=> {
   const addFormVisibility = useSelector((state) => state.addFormVisibility)
 
   useEffect(() => {
-    ;(async () => {
-      const response = await axios.get("/api/products")
-      dispatch(productsReceived(response.data))
-    })()
+      // dispatch the thunk function instead of action object
+    dispatch(fetchProducts())
   },[dispatch]);
 
   const handleAddClick = (e) => {

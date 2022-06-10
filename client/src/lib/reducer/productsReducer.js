@@ -24,3 +24,5 @@ export const products = (state = [], action) => {
       return state;
   } 
 }
+
+// RDT abstracts away this entire file
