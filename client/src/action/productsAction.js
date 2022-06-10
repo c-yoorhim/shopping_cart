@@ -7,9 +7,22 @@ export const productsReceived = (products) => {
 
 export const productAdded = (product) => {
   return ({
-    type: "PROUCT_ADDED",
+    type: "PRODUCT_ADDED",
     payload: product
   })
 }
+
+export const productEdited = (product) => {
+ return {
+  type: "PRODUCT_EDITED",
+  payload: product
+ } 
+}
+export const productDeleted = (productId) => {
+  return {
+   type: "PRODUCT_DELETED",
+   payload: productId
+  } 
+ }
 
 // export default;

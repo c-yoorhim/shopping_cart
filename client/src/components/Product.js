@@ -1,14 +1,13 @@
 import { useState } from "react";
 import ProductEditForm from "./ProductEditForm";
-import { useDispatch, useSelector } from 'react-redux'
-import cartReceived from "../action/cartsAction";
-import { productsReceived } from "../action/productsAction";
+import { useDispatch } from 'react-redux'
+import {cartItemReceived} from "../action/cartsAction";
+import { productDeleted } from "../action/productsAction";
 import axios from 'axios';
 
 const Product = ({ product })=> {
   const [showEditForm, setShowEditForm ] = useState(false)
   const dispatch = useDispatch();
-  const { products, cartItems } = useSelector(state => state)
 
   const handleShowEditForm = (e) => {
     e.preventDefault();
@@ -21,27 +20,8 @@ const Product = ({ product })=> {
 
   const handleAddToCart = async () => {
     try {
-      const response = await axios.post("/api/add-to-cart", { productId: product._id })
-
-      const found = cartItems.find(c => c.productId === product._id)
-
-      if (found) {
-        const updatedCart = cartItems.map(item => {
-          return item.productId === product._id ?
-          response.data.item
-          : item 
-        })
-        
-        dispatch(cartReceived(updatedCart))
-      } else {
-        dispatch(cartReceived(cartItems.concat(response.data.item))) // add to cart if not already in cart
-      }
-
-      const updatedProducts = products.map(p => {
-        return p._id === product._id ? response.data.product : p 
-      })
-      dispatch(productsReceived(updatedProducts))
-      
+      const {data} = await axios.post("/api/add-to-cart", { productId: product._id })
+      dispatch(cartItemReceived(data))
 
     } catch (e) { console.error(e) }
   }
@@ -50,8 +30,7 @@ const Product = ({ product })=> {
     return (async () => {
       try {
         await axios.delete(`/api/products/${id}`)
-        const updatedProducts = products.filter(p => p._id !== id)
-        dispatch(productsReceived(updatedProducts))
+        dispatch(productDeleted(id))
       } catch (e) { console.error(e) }
     })
   }

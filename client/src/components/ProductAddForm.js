@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { productsReceived, productAdded } from '../action/productsAction';
+import { productAdded } from '../action/productsAction';
 import axios from 'axios';
 import toggleAddForm from '../action/toggleAddFormAction';
 
@@ -10,7 +10,6 @@ const ProductAddForm = ()=> {
   const [productQuantity, setProductQuantity] = useState('')
   const dispatch = useDispatch();
   const addFormVisibility = useSelector((state) => state.addFormVisibility)
-  const products = useSelector(state => state.products)
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
@@ -22,7 +21,6 @@ const ProductAddForm = ()=> {
       })
       dispatch(toggleAddForm(!addFormVisibility));
       dispatch(productAdded(newProduct.data));
-      dispatch(productsReceived(products.concat(newProduct.data)));    
     } catch (e) { console.error(e) }
   }
 

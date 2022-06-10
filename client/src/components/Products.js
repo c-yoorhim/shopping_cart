@@ -23,7 +23,6 @@ const Products = ()=> {
     e.preventDefault()
     dispatch(toggleAddForm(!addFormVisibility))
   }
-
  
   return (
     <main>
