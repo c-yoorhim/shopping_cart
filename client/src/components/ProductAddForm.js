@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { ProductContext, addProduct } from '../context/productsContext';
 
-const ProductAddForm = ({ onCancel, onSubmit })=> {
+const ProductAddForm = ({ onCancel })=> {
   const [productName, setProductName] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productQuantity, setProductQuantity] = useState('')
+
+  const {dispatch} = useContext(ProductContext)
 
   const handleHideForm = (e) => {
     e.preventDefault();
@@ -11,7 +14,8 @@ const ProductAddForm = ({ onCancel, onSubmit })=> {
   } 
   const handleSubmit = (e) => {
     e.preventDefault()
-    onSubmit({productName, productPrice, productQuantity})
+    addProduct({productName, productPrice, productQuantity}, dispatch)
+    onCancel()
   }
 
   return (

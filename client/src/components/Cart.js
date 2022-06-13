@@ -1,9 +1,29 @@
+import { useEffect, useContext } from "react";
+import { addToCart, CartContext, fetchCart } from "../context/cartContext";
+import { updateProductQuantity } from "../context/productsContext";
 
-const Cart = ({ cartItems, onCheckout })=> {
+const Cart = ({ onCheckout })=> {
+  // const [cartItems, setCartItems] = useState([])
+  const {cartItems, dispatch} = useContext(CartContext)
+
+  useEffect(()=> {
+    fetchCart(dispatch)
+    }, [dispatch])
+    
   const handleCheckout = (e) => {
     e.preventDefault();
     onCheckout()
   }
+
+  // const handleAddToCart = async () => {
+  //     setCartItems(updatedCart)
+  //     } else {
+  //       setCartItems(cartItems.concat(data.item)) // add to cart if not already in cart
+  //     }
+  
+      
+  //   } catch (e) { console.error(e) }
+  // }
   
   let total = 0;
   return (

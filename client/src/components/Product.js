@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ProductEditForm from "./ProductEditForm";
-import axios from "axios"
+import { updateProductQuantity, deleteProduct, ProductContext } from "../context/productsContext";
+import { CartContext, addToCart } from "../context/cartContext";
 
-const Product = ({ product, setProducts, onEdit, onAddToCart, onDelete})=> {
+const Product = ({ product, onEdit, onAddToCart, onDelete})=> {
   const [showEditForm, setShowEditForm ] = useState(false)
+  const { dispatch: productsDispatch } = useContext(ProductContext)
+  const { dispatch: cartDispatch } = useContext(CartContext)
 
   const handleShowEditForm = () => {
     setShowEditForm(!showEditForm);
@@ -11,10 +14,16 @@ const Product = ({ product, setProducts, onEdit, onAddToCart, onDelete})=> {
   const handleHideForm = () => {
     setShowEditForm(false);
   }
-  const handleAddToCart = () => {
-    onAddToCart(product)
+  const handleAddToCart = async (e) => {
+    e.preventDefault();  
+    const data = await addToCart(product, cartDispatch);
+    updateProductQuantity(data, productsDispatch);       
   }
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+    deleteProduct(product._id, productsDispatch)
+  }
 
   return (
     <div className="product">
@@ -35,7 +44,7 @@ const Product = ({ product, setProducts, onEdit, onAddToCart, onDelete})=> {
         
         <a className="button edit" onClick={ handleShowEditForm }>Edit</a>
       </div>
-      <a className="delete-button" onClick={ onDelete(product._id) }><span>X</span></a>
+      <a className="delete-button" onClick={ handleDelete }><span>X</span></a>
     </div>
     {showEditForm ? <ProductEditForm id={ product._id} onCancel={ handleHideForm } onEdit={ onEdit } onShowEditForm={handleShowEditForm} product={product} /> : null }
     

@@ -1,9 +1,12 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { ProductContext, editProduct } from "../context/productsContext"
 
 const ProductEditForm = ({ id, onCancel, onEdit, onShowEditForm, product })=> {
   const [productName, setProductName] = useState(product.title)
   const [productPrice, setProductPrice] = useState(product.price)
   const [productQuantity, setProductQuantity] = useState(product.quantity)
+
+  const { dispatch } = useContext(ProductContext)
 
   const handleHideForm = (e) => {
     e.preventDefault();
@@ -11,11 +14,11 @@ const ProductEditForm = ({ id, onCancel, onEdit, onShowEditForm, product })=> {
   } 
 
   const handleEdit = (e) => {
-    e.preventDefault()
-    console.log('id', id)
-    onEdit({productName, productPrice, productQuantity, id }, resetForm)
-   
+    e.preventDefault();
+    editProduct({ productName, productPrice, productQuantity, id}, dispatch)
+    resetForm();
   }
+
   const resetForm = () => {
     setProductName("")
     setProductPrice("")
