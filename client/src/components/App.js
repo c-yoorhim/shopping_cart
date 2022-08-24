@@ -6,20 +6,10 @@ import Products from "./Products"
 import { addToCart, ProductContext } from "../context/productsContext";
 
 const App = () => {
-
-
-
   const {dispatch: productsDispatch} = useContext(ProductContext)
-
-
-
-const handleCheckout = async () => {
-  await axios.post("/api/checkout")
-  // setCartItems([])
-}
-
-
-
+  const handleCheckout = async () => {
+    await axios.post("/api/checkout")
+  }
 
   return (
     <div id="app">

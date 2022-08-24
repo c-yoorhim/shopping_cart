@@ -3,7 +3,6 @@ import { addToCart, CartContext, fetchCart } from "../context/cartContext";
 import { updateProductQuantity } from "../context/productsContext";
 
 const Cart = ({ onCheckout })=> {
-  // const [cartItems, setCartItems] = useState([])
   const {cartItems, dispatch} = useContext(CartContext)
 
   useEffect(()=> {
@@ -15,16 +14,6 @@ const Cart = ({ onCheckout })=> {
     onCheckout()
   }
 
-  // const handleAddToCart = async () => {
-  //     setCartItems(updatedCart)
-  //     } else {
-  //       setCartItems(cartItems.concat(data.item)) // add to cart if not already in cart
-  //     }
-  
-      
-  //   } catch (e) { console.error(e) }
-  // }
-  
   let total = 0;
   return (
     <header>

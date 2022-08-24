@@ -1,3 +1,4 @@
+// seed data
 export default [
   {
     id: 1,
